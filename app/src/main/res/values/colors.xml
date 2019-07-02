@@ -3,10 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
     <color name="ORANGE">#FFF9671F</color>
     <color name="GREEN">#FF00B443</color>
     <color name="PURPLE">#FF6726AB</color>
-    <color name="TRANSPARENT">#00ffffff></color>
-
+    <color name="TRANSPARENT">#00FFFFFF</color>
+    <color name="WHITE">#FFFFFF</color>
 </resources>

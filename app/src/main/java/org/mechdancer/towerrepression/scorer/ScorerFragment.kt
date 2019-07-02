@@ -1,6 +1,9 @@
 package org.mechdancer.towerrepression.scorer
 
 import android.animation.ObjectAnimator
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +12,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import kotlinx.android.synthetic.main.fragment_scorer.*
+import org.jetbrains.anko.backgroundColorResource
 import org.jetbrains.anko.forEachChild
 import org.jetbrains.anko.support.v4.UI
+import org.mechdancer.towerrepression.R
 
 class ScorerFragment : Fragment(), View.OnClickListener {
 
@@ -28,12 +33,21 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         UI { ScorerUI().createView(this) }.view
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        //Resize field image
+        constraintButtons.background =
+            BitmapDrawable(
+                resources,
+                Bitmap.createScaledBitmap(BitmapFactory.decodeResource(resources, R.drawable.field), 1024, 1024, false)
+            )
 
         constraintButtons.forEachChild {
             it.setOnClickListener(this)
+            it.backgroundColorResource = R.color.TRANSPARENT
         }
+
         pickerButtons.forEachChild {
             it.setOnClickListener(this)
         }
@@ -54,8 +68,8 @@ class ScorerFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if (view is Button) {
-            towers[view]?.let { it.content[current.index]++ }
-            zones[view]?.let { it.content[current.index]++ }
+            towers[view]?.let { it.content.getOrNull(current.index)?.inc() }
+            zones[view]?.let { it.content.getOrNull(current.index)?.inc() }
         } else if (view is ImageButton)
             changeColor(view.toCubeColor().takeIf { it != current } ?: CubeColor.Null)
 
@@ -76,8 +90,8 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     private fun ImageButton.toCubeColor() = CubeColor.values().find { it.toPickerButton() == this }!!
 
     private infix fun View.scaleTo(s: Float) {
-        ObjectAnimator.ofFloat(this, "scaleX", s).setDuration(300).start()
-        ObjectAnimator.ofFloat(this, "scaleY", s).setDuration(300).start()
+        ObjectAnimator.ofFloat(this, "scaleX", s).setDuration(80).start()
+        ObjectAnimator.ofFloat(this, "scaleY", s).setDuration(80).start()
     }
 
     private fun changeColor(color: CubeColor?) {

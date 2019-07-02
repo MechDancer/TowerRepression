@@ -20,7 +20,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        pager.adapter = PagerAdapter(supportFragmentManager, listOf(scorerFragment, tableFragment, timerFragment))
+        scorerFragment = ScorerFragment()
+        tableFragment = TableFragment()
+        timerFragment = TimerFragment()
+
+        pager.adapter = PagerAdapter(supportFragmentManager, listOf(timerFragment, scorerFragment, tableFragment))
         pager.currentItem = 1
 
     }

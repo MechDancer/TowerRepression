@@ -9,6 +9,6 @@ enum class CubeColor(@ColorRes val resFile: Int) {
     Purple(R.color.PURPLE),
     Null(R.color.TRANSPARENT);
 
-    val complementary = values().filter { it != this }
-    val index = values().indexOf(this)
+    val complementary by lazy { values().filter { it != this } }
+    val index by lazy { values().indexOf(this) }
 }

@@ -11,8 +11,8 @@
             android:layout_width="384dp"
             android:layout_height="384dp"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/constraintButtons"
-            android:background="@drawable/field">
+            android:layout_marginTop="100dp"
+            android:id="@+id/constraintButtons">
 
         <Button
                 android:text="RS"
