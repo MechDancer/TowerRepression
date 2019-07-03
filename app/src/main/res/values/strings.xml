@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">宝塔镇河妖</string>
     <string name="action_settings">设置</string>
+    <string name="redStartingWall">RS</string>
+    <string name="blueStartingWall">BS</string>
+    <string name="towerA">A</string>
+    <string name="towerB">B</string>
+    <string name="towerC">D</string>
+    <string name="towerD">D</string>
+    <string name="towerE">E</string>
+    <string name="redGoalZone">RGZ</string>
+    <string name="blueGoalZone">BGZ</string>
+    <string name="towerG">G</string>
+    <string name="towerH">H</string>
+    <string name="pickerOrangeDes">Orange</string>
+    <string name="pickerGreenDes">Green</string>
+    <string name="pickerPurpleDes">Purple</string>
 </resources>

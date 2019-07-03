@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_scorer.*
 import org.jetbrains.anko.backgroundColorResource
 import org.jetbrains.anko.forEachChild
 import org.jetbrains.anko.support.v4.UI
+import org.jetbrains.anko.support.v4.toast
 import org.mechdancer.towerrepression.R
 
 class ScorerFragment : Fragment(), View.OnClickListener {
@@ -33,6 +34,7 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         UI { ScorerUI().createView(this) }.view
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -68,6 +70,7 @@ class ScorerFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if (view is Button) {
+            toast("场地更新 ${view.id}")
             towers[view]?.let { it.content.getOrNull(current.index)?.inc() }
             zones[view]?.let { it.content.getOrNull(current.index)?.inc() }
         } else if (view is ImageButton)
@@ -95,6 +98,7 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun changeColor(color: CubeColor?) {
+        toast("选择了 $color")
         current = color ?: CubeColor.Null
         current.toPickerButton()?.let {
             it scaleTo 1.3f

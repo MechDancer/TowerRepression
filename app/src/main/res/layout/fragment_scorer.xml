@@ -15,106 +15,105 @@
             android:id="@+id/constraintButtons">
 
         <Button
-                android:text="RS"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:text="@string/redStartingWall"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/redStartingWall"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="16dp"/>
         <Button
-                android:text="BS"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:text="@string/blueStartingWall"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/blueStartingWall"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent"/>
         <Button
-                android:text="A"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:text="@string/towerA"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/towerA"
                 app:layout_constraintStart_toEndOf="@+id/redStartingWall"
                 android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toStartOf="@+id/blueStartingWall"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="78dp"
                 app:layout_constraintTop_toTopOf="parent"/>
         <Button
-                android:text="B"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:text="@string/towerB"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/towerB"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="52dp"
                 app:layout_constraintTop_toBottomOf="@+id/towerA"
                 app:layout_constraintStart_toEndOf="@+id/redStartingWall" android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toStartOf="@+id/blueStartingWall" android:layout_marginEnd="8dp"/>
         <Button
-                android:text="C"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:text="@string/towerC"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/towerC"
-                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/towerB"
                 app:layout_constraintStart_toEndOf="@+id/redStartingWall" android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/blueStartingWall" android:layout_marginEnd="8dp"/>
+                app:layout_constraintEnd_toStartOf="@+id/blueStartingWall" android:layout_marginEnd="8dp"
+                android:layout_marginTop="52dp"/>
         <Button
-                android:text="D"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:text="@string/towerD"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/towerD"
                 app:layout_constraintEnd_toStartOf="@+id/towerB"
                 android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" android:layout_marginTop="80dp"
+                android:layout_marginStart="8dp" android:layout_marginTop="120dp"
                 app:layout_constraintTop_toBottomOf="@+id/redStartingWall"
-                app:layout_constraintHorizontal_bias="0.0"/>
+                app:layout_constraintHorizontal_bias="0.344"/>
         <Button
-                android:text="E"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:text="@string/towerE"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/towerE"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="120dp"
                 app:layout_constraintTop_toBottomOf="@+id/blueStartingWall" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/towerB"
-                android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="1.0"/>
+                android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.646"/>
         <Button
-                android:text="RGZ"
+                android:text="@string/redGoalZone"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/redGoalZone"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/towerD" app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@+id/towerD" app:layout_constraintVertical_bias="0.933"
                 android:layout_marginStart="8dp"/>
         <Button
-                android:text="BGZ"
+                android:text="@string/blueGoalZone"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/blueGoalZone"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/towerE"
                 android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="1.0"/>
+                app:layout_constraintVertical_bias="0.933" android:layout_marginEnd="8dp"/>
         <Button
-                android:text="G"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:text="@string/towerG"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/towerG"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/redGoalZone"
-                android:layout_marginStart="20dp"/>
+                android:layout_marginStart="28dp"/>
         <Button
-                android:text="H"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:text="@string/towerH"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/towerH"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/blueGoalZone"
-                android:layout_marginEnd="64dp"/>
+                android:layout_marginEnd="28dp" app:layout_constraintEnd_toStartOf="@+id/blueGoalZone"/>
 
     </android.support.constraint.ConstraintLayout>
     <LinearLayout
@@ -130,21 +129,21 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@color/ORANGE"
-                android:contentDescription="Orange"/>
+                android:contentDescription="@string/pickerOrangeDes"/>
         <ImageButton
                 android:id="@+id/pickerGreen"
                 android:layout_margin="20dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@color/GREEN"
-                android:contentDescription="Green"/>
+                android:contentDescription="@string/pickerGreenDes"/>
         <ImageButton
                 android:id="@+id/pickerPurple"
                 android:layout_margin="20dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@color/PURPLE"
-                android:contentDescription="Purple"/>
+                android:contentDescription="@string/pickerPurpleDes"/>
     </LinearLayout>
 </LinearLayout>
 
