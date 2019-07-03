@@ -6,7 +6,7 @@ import com.bin.david.form.annotation.SmartTable
 
 @SmartTable(name = "分数")
 data class ScoreData(
-    @SmartColumn(id = 1, name = "队名")
+    @SmartColumn(id = 1, name = "\t")
     val team: String,
     @SmartColumn(id = 2, name = "橙色分数")
     val orangeScore: Int,
@@ -21,7 +21,7 @@ data class ScoreData(
 
 @SmartTable(name = "奖励")
 data class BonusData(
-    @SmartColumn(id = 1, name = "队名")
+    @SmartColumn(id = 1, name = "\t")
     val team: String,
     @SmartColumn(id = 2, name = "橙色奖励")
     val orangeBonus: Int,

@@ -1,13 +1,14 @@
 package org.mechdancer.towerrepression
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
 import org.mechdancer.towerrepression.scorer.ScorerFragment
 import org.mechdancer.towerrepression.table.TableFragment
-import org.mechdancer.towerrepression.timer.TimerFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +38,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_clear -> {
+                Snackbar.make(pager, "清空场地", Snackbar.LENGTH_SHORT).show()
+                EventBus.getDefault().post(ClearEvent)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

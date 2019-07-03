@@ -19,20 +19,21 @@ class TableUI : AnkoComponent<Fragment> {
         linearLayout {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER_HORIZONTAL
+            leftPadding=dip(30)
             lparams(matchParent, matchParent)
             customView<SmartTable<BonusData>> {
                 id = TABLE_BONUS_ID
                 config.isShowYSequence = false
                 config.isShowXSequence = false
-            }.lparams(matchParent, wrapContent) {
+            }.lparams(matchParent, dip(150)) {
                 gravity = Gravity.CENTER_HORIZONTAL
-                topMargin = 100
+                topMargin = 350
             }
             customView<SmartTable<ScoreData>> {
                 id = TABLE_SCORE_ID
                 config.isShowYSequence = false
                 config.isShowXSequence = false
-            }.lparams(matchParent, wrapContent) {
+            }.lparams(matchParent, dip(150)) {
                 gravity = Gravity.CENTER_HORIZONTAL
                 topMargin = 100
             }

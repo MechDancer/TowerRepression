@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.UI
+import org.mechdancer.towerrepression.ClearEvent
 import org.mechdancer.towerrepression.FieldEvent
 import org.mechdancer.towerrepression.scorer.CubeColor
 
@@ -25,8 +26,14 @@ class TableFragment : Fragment() {
         bonusTable = ui.find(TableUI.TABLE_BONUS_ID)
         scoreTable = ui.find(TableUI.TABLE_SCORE_ID)
         EventBus.getDefault().register(this)
-        onFieldUpdate(FieldEvent.empty())
+        onClear(ClearEvent)
         return ui
+    }
+
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -114,5 +121,10 @@ class TableFragment : Fragment() {
             scoreTable.setData(mutableListOf(redTeamScore, blueTeamScore, dTeamScore))
 
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onClear(event: ClearEvent) {
+        onFieldUpdate(FieldEvent.empty())
     }
 }
