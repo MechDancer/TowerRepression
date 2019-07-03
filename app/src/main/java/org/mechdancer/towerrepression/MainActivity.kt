@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var scorerFragment: ScorerFragment
     private lateinit var tableFragment: TableFragment
-    private lateinit var timerFragment: TimerFragment
+//    private lateinit var timerFragment: TimerFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
 
         scorerFragment = ScorerFragment()
         tableFragment = TableFragment()
-        timerFragment = TimerFragment()
+//        timerFragment = TimerFragment()
 
-        pager.adapter = PagerAdapter(supportFragmentManager, listOf(timerFragment, scorerFragment, tableFragment))
-        pager.currentItem = 1
+        pager.adapter = PagerAdapter(supportFragmentManager, listOf(scorerFragment, tableFragment))
+        pager.currentItem = 0
 
     }
 

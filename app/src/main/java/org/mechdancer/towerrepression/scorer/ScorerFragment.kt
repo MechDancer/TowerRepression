@@ -5,31 +5,31 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import kotlinx.android.synthetic.main.fragment_scorer.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.backgroundColorResource
 import org.jetbrains.anko.forEachChild
 import org.jetbrains.anko.support.v4.UI
-import org.jetbrains.anko.support.v4.toast
+import org.mechdancer.towerrepression.FieldEvent
 import org.mechdancer.towerrepression.R
 
 class ScorerFragment : Fragment(), View.OnClickListener {
 
-    //Scores
-    private val bonus = IntArray(3)
-    private val totalScore = IntArray(3)
 
     //Scorer state
     private val towers = mutableMapOf<Button, Tower>()
     private val zones = mutableMapOf<Button, Zone>()
 
     //Picker state
-    private var current = CubeColor.Null
+    private var current = CubeColor.None
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         UI { ScorerUI().createView(this) }.view
@@ -62,22 +62,46 @@ class ScorerFragment : Fragment(), View.OnClickListener {
         towers[towerG] = Tower()
         towers[towerH] = Tower()
 
-        zones[redGoalZone] = Zone()
-        zones[redStartingWall] = Zone()
-        zones[blueGoalZone] = Zone()
-        zones[blueStartingWall] = Zone()
+        zones[redGoalZone] = Zone(false)
+        zones[redStartingWall] = Zone(false)
+        zones[blueGoalZone] = Zone(true)
+        zones[blueStartingWall] = Zone(true)
     }
 
     override fun onClick(view: View) {
         if (view is Button) {
-            toast("场地更新 ${view.id}")
-            towers[view]?.let { it.content.getOrNull(current.index)?.inc() }
-            zones[view]?.let { it.content.getOrNull(current.index)?.inc() }
+            Snackbar.make(constraintButtons, "场地更新 ${view.id}", Snackbar.LENGTH_SHORT).show()
+            towers[view]?.let { map ->
+                map.content.getOrNull(current.index)?.let { map.content[map.content.indexOf(it)] = it + 1 }
+            }
+            zones[view]?.let { map ->
+                map.content.getOrNull(current.index)?.let { map.content[map.content.indexOf(it)] = it + 1 }
+            }
+            Log.d(javaClass.name, towers.values.joinToString())
+            Log.d(javaClass.name, zones.values.joinToString())
+            postData()
         } else if (view is ImageButton)
-            changeColor(view.toCubeColor().takeIf { it != current } ?: CubeColor.Null)
+            changeColor(view.toCubeColor().takeIf { it != current } ?: CubeColor.None)
 
     }
 
+    private fun postData() {
+        val orangeBonus = towers.values.sumBy { it.content[CubeColor.Orange.index] }
+        val greenBonus = towers.values.sumBy { it.content[CubeColor.Green.index] }
+        val purpleBonus = towers.values.sumBy { it.content[CubeColor.Purple.index] }
+        val redOrangeCube = zones.values.filter { !it.isBlueTeam }.sumBy { it.content[CubeColor.Orange.index] }
+        val redGreenCube = zones.values.filter { !it.isBlueTeam }.sumBy { it.content[CubeColor.Green.index] }
+        val redPurpleCube = zones.values.filter { !it.isBlueTeam }.sumBy { it.content[CubeColor.Purple.index] }
+        val blueOrangeCube = zones.values.filter { it.isBlueTeam }.sumBy { it.content[CubeColor.Orange.index] }
+        val blueGreenCube = zones.values.filter { it.isBlueTeam }.sumBy { it.content[CubeColor.Green.index] }
+        val bluePurpleCube = zones.values.filter { it.isBlueTeam }.sumBy { it.content[CubeColor.Purple.index] }
+        EventBus.getDefault().post(
+            FieldEvent(
+                intArrayOf(orangeBonus, greenBonus, purpleBonus),
+                intArrayOf(redOrangeCube, redGreenCube, redPurpleCube, blueOrangeCube, blueGreenCube, bluePurpleCube)
+            )
+        )
+    }
 
     //Scorer Impl
 
@@ -87,7 +111,7 @@ class ScorerFragment : Fragment(), View.OnClickListener {
         CubeColor.Orange -> pickerOrange
         CubeColor.Green -> pickerGreen
         CubeColor.Purple -> pickerPurple
-        CubeColor.Null -> null
+        CubeColor.None -> null
     }
 
     private fun ImageButton.toCubeColor() = CubeColor.values().find { it.toPickerButton() == this }!!
@@ -98,8 +122,8 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun changeColor(color: CubeColor?) {
-        toast("选择了 $color")
-        current = color ?: CubeColor.Null
+        Snackbar.make(constraintButtons, "选择了 $color", Snackbar.LENGTH_SHORT).show()
+        current = color ?: CubeColor.None
         current.toPickerButton()?.let {
             it scaleTo 1.3f
         }
