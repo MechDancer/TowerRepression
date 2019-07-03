@@ -15,7 +15,7 @@
             android:id="@+id/constraintButtons">
 
         <Button
-                android:text="@string/redStartingWall"
+                android:text="@string/scorer_redStartingWall"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/redStartingWall"
@@ -24,7 +24,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"/>
         <Button
-                android:text="@string/blueStartingWall"
+                android:text="@string/scorer_blueStartingWall"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/blueStartingWall"
@@ -33,7 +33,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent"/>
         <Button
-                android:text="@string/towerA"
+                android:text="@string/scorer_towerA"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/towerA"
@@ -44,7 +44,7 @@
                 android:layout_marginTop="78dp"
                 app:layout_constraintTop_toTopOf="parent"/>
         <Button
-                android:text="@string/towerB"
+                android:text="@string/scorer_towerB"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/towerB"
@@ -53,7 +53,7 @@
                 app:layout_constraintStart_toEndOf="@+id/redStartingWall" android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toStartOf="@+id/blueStartingWall" android:layout_marginEnd="8dp"/>
         <Button
-                android:text="@string/towerC"
+                android:text="@string/scorer_towerC"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/towerC"
@@ -62,7 +62,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/blueStartingWall" android:layout_marginEnd="8dp"
                 android:layout_marginTop="52dp"/>
         <Button
-                android:text="@string/towerD"
+                android:text="@string/scorer_towerD"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/towerD"
@@ -72,7 +72,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/redStartingWall"
                 app:layout_constraintHorizontal_bias="0.344"/>
         <Button
-                android:text="@string/towerE"
+                android:text="@string/scorer_towerE"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/towerE"
@@ -81,7 +81,7 @@
                 android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/towerB"
                 android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.646"/>
         <Button
-                android:text="@string/redGoalZone"
+                android:text="@string/scorer_redGoalZone"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/redGoalZone"
@@ -91,7 +91,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/towerD" app:layout_constraintVertical_bias="0.933"
                 android:layout_marginStart="8dp"/>
         <Button
-                android:text="@string/blueGoalZone"
+                android:text="@string/scorer_blueGoalZone"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/blueGoalZone"
@@ -100,7 +100,7 @@
                 android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintVertical_bias="0.933" android:layout_marginEnd="8dp"/>
         <Button
-                android:text="@string/towerG"
+                android:text="@string/scorer_towerG"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/towerG"
@@ -108,7 +108,7 @@
                 app:layout_constraintStart_toEndOf="@+id/redGoalZone"
                 android:layout_marginStart="28dp"/>
         <Button
-                android:text="@string/towerH"
+                android:text="@string/scorer_towerH"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/towerH"
@@ -129,21 +129,21 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@color/ORANGE"
-                android:contentDescription="@string/pickerOrangeDes"/>
+                android:contentDescription="@string/scorer_pickerOrangeDes"/>
         <ImageButton
                 android:id="@+id/pickerGreen"
                 android:layout_margin="20dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@color/GREEN"
-                android:contentDescription="@string/pickerGreenDes"/>
+                android:contentDescription="@string/scorer_pickerGreenDes"/>
         <ImageButton
                 android:id="@+id/pickerPurple"
                 android:layout_margin="20dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@color/PURPLE"
-                android:contentDescription="@string/pickerPurpleDes"/>
+                android:contentDescription="@string/scorer_pickerPurpleDes"/>
     </LinearLayout>
 </LinearLayout>
 

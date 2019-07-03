@@ -138,8 +138,8 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun changeColor(color: CubeColor?) {
-        Snackbar.make(constraintButtons, "选择了 $color", Snackbar.LENGTH_SHORT).show()
         current = color ?: CubeColor.None
+        Snackbar.make(constraintButtons, "选择了${getString(current.str())}", Snackbar.LENGTH_SHORT).show()
         current.toPickerButton()?.let {
             it scaleTo 1.3f
         }
