@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
+import org.mechdancer.towerrepression.preference.SettingsFragment
 import org.mechdancer.towerrepression.scorer.ScorerFragment
 import org.mechdancer.towerrepression.table.TableFragment
 
@@ -14,7 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var scorerFragment: ScorerFragment
     private lateinit var tableFragment: TableFragment
-//    private lateinit var timerFragment: TimerFragment
+    //    private lateinit var timerFragment: TimerFragment
+    private lateinit var settingsFragment: SettingsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +26,11 @@ class MainActivity : AppCompatActivity() {
         scorerFragment = ScorerFragment()
         tableFragment = TableFragment()
 //        timerFragment = TimerFragment()
+        settingsFragment = SettingsFragment()
 
-        pager.adapter = PagerAdapter(supportFragmentManager, listOf(scorerFragment, tableFragment))
-        pager.currentItem = 0
+        pager.adapter = PagerAdapter(supportFragmentManager, listOf(settingsFragment, scorerFragment, tableFragment))
+        pager.currentItem = 1
+        pager.offscreenPageLimit = 4
 
     }
 
@@ -37,7 +41,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> {
+                pager.currentItem = 0
+                true
+            }
             R.id.action_clear -> {
                 Snackbar.make(pager, "清空场地", Snackbar.LENGTH_SHORT).show()
                 EventBus.getDefault().post(ClearEvent)

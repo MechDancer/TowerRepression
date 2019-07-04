@@ -1,0 +1,17 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+            android:title="通用"
+            android:key="general"
+            android:summary="意义不明的设置"
+
+    >
+        <ListPreference
+                android:key="team"
+                android:title="队伍"
+                android:summary="点击弹出队伍列表"
+                android:dialogTitle="请选择队伍"
+                android:entries="@array/teams"
+                android:entryValues="@array/teams"
+        />
+    </PreferenceCategory>
+</PreferenceScreen>

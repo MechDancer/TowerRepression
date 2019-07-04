@@ -8,13 +8,13 @@ import com.bin.david.form.annotation.SmartTable
 data class ScoreData(
     @SmartColumn(id = 1, name = "\t")
     val team: String,
-    @SmartColumn(id = 2, name = "橙色分数")
+    @SmartColumn(id = 2, name = "橙色")
     val orangeScore: Int,
-    @SmartColumn(id = 3, name = "绿色分数")
+    @SmartColumn(id = 3, name = "绿色")
     val greenScore: Int,
-    @SmartColumn(id = 4, name = "紫色分数")
-    val purple: Int,
-    @SmartColumn(id = 5, name = "全部分数")
+    @SmartColumn(id = 4, name = "紫色")
+    val purpleScore: Int,
+    @SmartColumn(id = 5, name = "全部")
     val totalScore: Int
 )
 
@@ -23,14 +23,28 @@ data class ScoreData(
 data class BonusData(
     @SmartColumn(id = 1, name = "\t")
     val team: String,
-    @SmartColumn(id = 2, name = "橙色奖励")
+    @SmartColumn(id = 2, name = "橙色")
     val orangeBonus: Int,
-    @SmartColumn(id = 3, name = "绿色奖励")
-    val greenScore: Int,
-    @SmartColumn(id = 4, name = "紫色奖励")
-    val purple: Int,
-    @SmartColumn(id = 5, name = "全部奖励")
-    val totalScore: Int
+    @SmartColumn(id = 3, name = "绿色")
+    val greenBonus: Int,
+    @SmartColumn(id = 4, name = "紫色")
+    val purpleBonus: Int,
+    @SmartColumn(id = 5, name = "全部")
+    val totalBonus: Int
+)
+
+@SmartTable(name = "个数")
+data class BlockData(
+    @SmartColumn(id = 1, name = "\t")
+    val team: String,
+    @SmartColumn(id = 2, name = "橙色")
+    val orangeCount: Int,
+    @SmartColumn(id = 3, name = "绿色")
+    val greenCount: Int,
+    @SmartColumn(id = 4, name = "紫色")
+    val purpleCount: Int,
+    @SmartColumn(id = 5, name = "全部")
+    val totalCount: Int
 )
 
 

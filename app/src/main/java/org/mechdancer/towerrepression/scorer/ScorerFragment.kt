@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.backgroundColorResource
 import org.jetbrains.anko.forEachChild
 import org.jetbrains.anko.support.v4.UI
+import org.jetbrains.anko.support.v4.toast
 import org.mechdancer.towerrepression.ClearEvent
 import org.mechdancer.towerrepression.FieldEvent
 import org.mechdancer.towerrepression.R
@@ -33,6 +34,10 @@ class ScorerFragment : Fragment(), View.OnClickListener {
 
     //Picker state
     private var current = CubeColor.None
+
+    private val deleteMode
+        get() = deleteSwitch.isChecked
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         EventBus.getDefault().register(this)
@@ -86,12 +91,20 @@ class ScorerFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if (view is Button) {
-            Snackbar.make(constraintButtons, "场地更新 ${view.id}", Snackbar.LENGTH_SHORT).show()
+            if (current == CubeColor.None) return
+            val dValue = if (deleteMode) -1 else 1
+            Snackbar.make(constraintButtons, "场地更新 ${view.text}", Snackbar.LENGTH_SHORT).show()
+            fun Int.check() = if (this < 0) {
+                toast("此种颜色方块已经空了")
+                0
+            } else this
             towers[view]?.let { map ->
-                map.content.getOrNull(current.index)?.let { map.content[map.content.indexOf(it)] = it + 1 }
+                map.content.getOrNull(current.index)
+                    ?.let { map.content[map.content.indexOf(it)] = (it + dValue).check() }
             }
             zones[view]?.let { map ->
-                map.content.getOrNull(current.index)?.let { map.content[map.content.indexOf(it)] = it + 1 }
+                map.content.getOrNull(current.index)
+                    ?.let { map.content[map.content.indexOf(it)] = (it + dValue).check() }
             }
             Log.d(javaClass.name, towers.values.joinToString())
             Log.d(javaClass.name, zones.values.joinToString())

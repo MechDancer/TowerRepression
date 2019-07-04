@@ -20,4 +20,13 @@
     <string name="cube_color_green">绿色</string>
     <string name="cube_color_orange">橙色</string>
     <string name="cube_color_none">空</string>
+    <string name="switch_text">删除模式</string>
+    <string name="switch_text_on">开</string>
+    <string name="switch_text_off">关</string>
+    <string name="title_activity_preference">设置</string>
+
+    <string-array name="teams">
+        <item>红方</item>
+        <item>蓝方</item>
+    </string-array>
 </resources>

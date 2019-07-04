@@ -19,11 +19,13 @@ import org.mechdancer.towerrepression.scorer.CubeColor
 class TableFragment : Fragment() {
 
     private lateinit var bonusTable: SmartTable<BonusData>
+    private lateinit var blockTable: SmartTable<BlockData>
     private lateinit var scoreTable: SmartTable<ScoreData>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val ui = UI { TableUI().createView(this) }.view
         bonusTable = ui.find(TableUI.TABLE_BONUS_ID)
+        blockTable = ui.find(TableUI.TABLE_BLOCK_ID)
         scoreTable = ui.find(TableUI.TABLE_SCORE_ID)
         EventBus.getDefault().register(this)
         onClear(ClearEvent)
@@ -43,28 +45,40 @@ class TableFragment : Fragment() {
             val redOrangeBonus = towerData[CubeColor.Orange.index]
             val redGreenBonus = towerData[CubeColor.Green.index]
             val redPurpleBonus = towerData[CubeColor.Purple.index]
-            val redOrangeScore = zoneData[CubeColor.Orange.index] * (redOrangeBonus + 1)
-            val redGreenScore = zoneData[CubeColor.Green.index] * (redGreenBonus + 1)
-            val redPurpleScore = zoneData[CubeColor.Purple.index] * (redPurpleBonus + 1)
+            val redOrangeCount = zoneData[CubeColor.Orange.index]
+            val redGreenCount = zoneData[CubeColor.Green.index]
+            val redPurpleCount = zoneData[CubeColor.Purple.index]
+            val redOrangeScore = redOrangeCount * (redOrangeBonus + 1)
+            val redGreenScore = redGreenCount * (redGreenBonus + 1)
+            val redPurpleScore = redPurpleCount * (redPurpleBonus + 1)
             val redTotalBonus = redOrangeBonus + redGreenBonus + redPurpleBonus
+            val redTotalCount = zoneData.sum()
             val redTotalScore = redOrangeScore + redGreenScore + redPurpleScore
 
             val blueOrangeBonus = towerData[CubeColor.Orange.index]
             val blueGreenBonus = towerData[CubeColor.Green.index]
             val bluePurpleBonus = towerData[CubeColor.Purple.index]
-            val blueOrangeScore = zoneData[CubeColor.Orange.index + 3] * (blueOrangeBonus + 1)
-            val blueGreenScore = zoneData[CubeColor.Green.index + 3] * (blueGreenBonus + 1)
-            val bluePurpleScore = zoneData[CubeColor.Purple.index + 3] * (bluePurpleBonus + 1)
+            val blueOrangeCount = zoneData[CubeColor.Orange.index]
+            val blueGreenCount = zoneData[CubeColor.Green.index]
+            val bluePurpleCount = zoneData[CubeColor.Purple.index]
+            val blueOrangeScore = blueOrangeCount * (blueOrangeBonus + 1)
+            val blueGreenScore = blueGreenCount * (blueGreenBonus + 1)
+            val bluePurpleScore = bluePurpleCount * (bluePurpleBonus + 1)
             val blueTotalBonus = blueOrangeBonus + blueGreenBonus + bluePurpleBonus
+            val blueTotalCount = zoneData.sum()
             val blueTotalScore = blueOrangeScore + blueGreenScore + bluePurpleScore
 
             val dOrangeBonus = redOrangeBonus - blueOrangeBonus
             val dGreenBonus = redGreenBonus - blueGreenBonus
             val dPurpleBonus = redPurpleBonus - bluePurpleBonus
+            val dOrangeCount = redOrangeCount - blueOrangeCount
+            val dGreenCount = redGreenCount - blueGreenCount
+            val dPurpleCount = redPurpleCount - bluePurpleCount
             val dOrangeScore = redOrangeScore - blueOrangeScore
             val dGreenScore = redGreenScore - blueGreenScore
             val dPurpleScore = redPurpleScore - bluePurpleScore
             val dTotalBonus = redTotalBonus - blueTotalBonus
+            val dTotalCount = redTotalCount - blueTotalCount
             val dTotalScore = redTotalScore - blueTotalScore
 
             val redTeamBonus =
@@ -74,6 +88,14 @@ class TableFragment : Fragment() {
                     redGreenBonus,
                     redPurpleBonus,
                     redTotalBonus
+                )
+            val redTeamBlock =
+                BlockData(
+                    "红方",
+                    redOrangeCount,
+                    redGreenCount,
+                    redPurpleCount,
+                    redTotalCount
                 )
             val redTeamScore =
                 ScoreData(
@@ -93,14 +115,20 @@ class TableFragment : Fragment() {
                     bluePurpleBonus,
                     blueTotalBonus
                 )
-            val blueTeamScore =
-                ScoreData(
-                    "蓝方",
-                    blueOrangeScore,
-                    blueGreenScore,
-                    bluePurpleScore,
-                    blueTotalScore
-                )
+            val blueTeamBlock = BlockData(
+                "蓝方",
+                blueOrangeCount,
+                blueGreenCount,
+                bluePurpleCount,
+                blueTotalCount
+            )
+            val blueTeamScore = ScoreData(
+                "蓝方",
+                blueOrangeScore,
+                blueGreenScore,
+                bluePurpleScore,
+                blueTotalScore
+            )
 
 
             val dTeamBonus = BonusData(
@@ -110,6 +138,13 @@ class TableFragment : Fragment() {
                 dPurpleBonus,
                 dTotalBonus
             )
+            val dTeamBlock = BlockData(
+                "差值",
+                dOrangeCount,
+                dGreenCount,
+                dPurpleCount,
+                dTotalCount
+            )
             val dTeamScore = ScoreData(
                 "差值",
                 dOrangeScore,
@@ -118,6 +153,7 @@ class TableFragment : Fragment() {
                 dTotalScore
             )
             bonusTable.setData(mutableListOf(redTeamBonus, blueTeamBonus, dTeamBonus))
+            blockTable.setData(mutableListOf(redTeamBlock, blueTeamBlock, dTeamBlock))
             scoreTable.setData(mutableListOf(redTeamScore, blueTeamScore, dTeamScore))
 
         }

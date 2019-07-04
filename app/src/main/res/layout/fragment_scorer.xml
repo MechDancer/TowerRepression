@@ -11,7 +11,7 @@
             android:layout_width="384dp"
             android:layout_height="384dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:id="@+id/constraintButtons">
 
         <Button
@@ -145,6 +145,17 @@
                 android:background="@color/PURPLE"
                 android:contentDescription="@string/scorer_pickerPurpleDes"/>
     </LinearLayout>
+    <android.support.v7.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:id="@+id/deleteSwitch"
+            android:text="@string/switch_text"
+            android:textOn="@string/switch_text_on"
+            android:textOff="@string/switch_text_off"
+            app:showText="false"
+    />
 </LinearLayout>
 
 
