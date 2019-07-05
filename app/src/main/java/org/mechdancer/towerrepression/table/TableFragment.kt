@@ -1,5 +1,6 @@
 package org.mechdancer.towerrepression.table
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -12,6 +13,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.UI
+import org.jetbrains.anko.support.v4.defaultSharedPreferences
 import org.mechdancer.towerrepression.ClearEvent
 import org.mechdancer.towerrepression.FieldEvent
 import org.mechdancer.towerrepression.scorer.CubeColor
@@ -41,6 +43,7 @@ class TableFragment : Fragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFieldUpdate(event: FieldEvent) {
         Log.d(javaClass.name, event.toString())
+        Log.d(javaClass.name,context!!.getSharedPreferences("settings",Context.MODE_PRIVATE).getString("general.team","sssssss"))
         with(event) {
             val redOrangeBonus = towerData[CubeColor.Orange.index]
             val redGreenBonus = towerData[CubeColor.Green.index]
@@ -52,20 +55,20 @@ class TableFragment : Fragment() {
             val redGreenScore = redGreenCount * (redGreenBonus + 1)
             val redPurpleScore = redPurpleCount * (redPurpleBonus + 1)
             val redTotalBonus = redOrangeBonus + redGreenBonus + redPurpleBonus
-            val redTotalCount = zoneData.sum()
+            val redTotalCount = zoneData.take(3).sum()
             val redTotalScore = redOrangeScore + redGreenScore + redPurpleScore
 
             val blueOrangeBonus = towerData[CubeColor.Orange.index]
             val blueGreenBonus = towerData[CubeColor.Green.index]
             val bluePurpleBonus = towerData[CubeColor.Purple.index]
-            val blueOrangeCount = zoneData[CubeColor.Orange.index]
-            val blueGreenCount = zoneData[CubeColor.Green.index]
-            val bluePurpleCount = zoneData[CubeColor.Purple.index]
+            val blueOrangeCount = zoneData[CubeColor.Orange.index + 3]
+            val blueGreenCount = zoneData[CubeColor.Green.index + 3]
+            val bluePurpleCount = zoneData[CubeColor.Purple.index + 3]
             val blueOrangeScore = blueOrangeCount * (blueOrangeBonus + 1)
             val blueGreenScore = blueGreenCount * (blueGreenBonus + 1)
             val bluePurpleScore = bluePurpleCount * (bluePurpleBonus + 1)
             val blueTotalBonus = blueOrangeBonus + blueGreenBonus + bluePurpleBonus
-            val blueTotalCount = zoneData.sum()
+            val blueTotalCount = zoneData.takeLast(3).sum()
             val blueTotalScore = blueOrangeScore + blueGreenScore + bluePurpleScore
 
             val dOrangeBonus = redOrangeBonus - blueOrangeBonus
