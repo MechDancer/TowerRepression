@@ -4,14 +4,13 @@ import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
 import org.mechdancer.towerrepression.R
 
-enum class CubeColor(@ColorRes val resFile: Int) {
-    Orange(R.color.ORANGE),
-    Green(R.color.GREEN),
-    Purple(R.color.PURPLE),
-    None(R.color.TRANSPARENT);
+enum class CubeColor(@ColorRes val resFile: Int, val index: Int) {
+    Orange(R.color.ORANGE, 0),
+    Green(R.color.GREEN, 1),
+    Purple(R.color.PURPLE, 2),
+    None(R.color.TRANSPARENT, 3);
 
     val complementary by lazy { values().filter { it != this } }
-    val index by lazy { values().indexOf(this) }
 
     @StringRes
     fun str(): Int = when (this) {

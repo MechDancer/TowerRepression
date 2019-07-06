@@ -7,6 +7,9 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,13 +23,14 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.backgroundColorResource
 import org.jetbrains.anko.forEachChild
 import org.jetbrains.anko.support.v4.UI
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.support.v4.toast
 import org.mechdancer.towerrepression.ClearEvent
 import org.mechdancer.towerrepression.FieldEvent
 import org.mechdancer.towerrepression.R
 import org.mechdancer.towerrepression.TableRefreshRequest
 
-@Suppress("UNUSED_PARAMETER")
+@Suppress("UNUSED_PARAMETER", "DEPRECATION")
 class ScorerFragment : Fragment(), View.OnClickListener {
 
 
@@ -47,7 +51,6 @@ class ScorerFragment : Fragment(), View.OnClickListener {
         return UI { ScorerUI().createView(this) }.view
     }
 
-    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //Resize field image
@@ -59,7 +62,7 @@ class ScorerFragment : Fragment(), View.OnClickListener {
 
         constraintButtons.forEachChild {
             it.setOnClickListener(this)
-            it.backgroundColorResource = R.color.TRANSPARENT
+            it.backgroundColorResource = R.color.WHITE_A
         }
 
         pickerButtons.forEachChild {
@@ -91,6 +94,36 @@ class ScorerFragment : Fragment(), View.OnClickListener {
         Log.i(javaClass.name, "收到清空事件")
         towers.values.forEach { it.content.indices.forEach { i -> it.content[i] = 0 } }
         zones.values.forEach { it.content.indices.forEach { i -> it.content[i] = 0 } }
+        runOnUiThread {
+            constraintButtons.forEachChild {
+                it as Button
+                it.setBlockCount(0, 0, 0)
+            }
+        }
+    }
+
+    private fun Button.setBlockCount(orangeCount: Int, greenCount: Int, purpleCount: Int) {
+        textSize = 10f
+        text = SpannableStringBuilder().apply {
+            append(
+                "■",
+                ForegroundColorSpan(resources.getColor(R.color.ORANGE)),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            append(orangeCount.toString())
+            append(
+                "■",
+                ForegroundColorSpan(resources.getColor(R.color.GREEN)),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            append(greenCount.toString())
+            append(
+                "■",
+                ForegroundColorSpan(resources.getColor(R.color.PURPLE)),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            append(purpleCount.toString())
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -99,23 +132,31 @@ class ScorerFragment : Fragment(), View.OnClickListener {
         postData()
     }
 
+
     override fun onClick(view: View) {
         if (view is Button) {
             if (current == CubeColor.None) return
             val dValue = if (deleteMode) -1 else 1
-            Snackbar.make(constraintButtons, "场地更新 ${view.text}", Snackbar.LENGTH_SHORT).show()
+
+            Snackbar.make(constraintButtons, "场地更新", Snackbar.LENGTH_SHORT).show()
+
             fun Int.check() = if (this < 0) {
                 toast("此种颜色方块已经空了")
                 0
             } else this
-            towers[view]?.let { map ->
-                map.content.getOrNull(current.index)
-                    ?.let { map.content[map.content.indexOf(it)] = (it + dValue).check() }
-            }
-            zones[view]?.let { map ->
-                map.content.getOrNull(current.index)
-                    ?.let { map.content[map.content.indexOf(it)] = (it + dValue).check() }
-            }
+
+            val content = towers[view]?.content ?: zones[view]?.content ?: throw RuntimeException()
+
+            content[current.index] = (content[current.index] + dValue).check()
+
+
+            val orangeCount = content[CubeColor.Orange.index]
+            val greenCount = content[CubeColor.Green.index]
+            val purpleCount = content[CubeColor.Purple.index]
+
+            view.setBlockCount(orangeCount, greenCount, purpleCount)
+
+
             Log.d(javaClass.name, towers.values.joinToString())
             Log.d(javaClass.name, zones.values.joinToString())
             postData()
@@ -143,9 +184,6 @@ class ScorerFragment : Fragment(), View.OnClickListener {
         )
     }
 
-    //Scorer Impl
-
-    //Picker Impl
 
     private fun CubeColor.toPickerButton() = when (this) {
         CubeColor.Orange -> pickerOrange
