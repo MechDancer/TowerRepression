@@ -24,7 +24,9 @@ import org.jetbrains.anko.support.v4.toast
 import org.mechdancer.towerrepression.ClearEvent
 import org.mechdancer.towerrepression.FieldEvent
 import org.mechdancer.towerrepression.R
+import org.mechdancer.towerrepression.TableRefreshRequest
 
+@Suppress("UNUSED_PARAMETER")
 class ScorerFragment : Fragment(), View.OnClickListener {
 
 
@@ -40,6 +42,7 @@ class ScorerFragment : Fragment(), View.OnClickListener {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.i(javaClass.name, "创建布局")
         EventBus.getDefault().register(this)
         return UI { ScorerUI().createView(this) }.view
     }
@@ -47,7 +50,6 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         //Resize field image
         constraintButtons.background =
             BitmapDrawable(
@@ -79,14 +81,22 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onDestroy() {
+        Log.i(javaClass.name, "销毁")
         EventBus.getDefault().unregister(this)
         super.onDestroy()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onClear(event: ClearEvent) {
+        Log.i(javaClass.name, "收到清空事件")
         towers.values.forEach { it.content.indices.forEach { i -> it.content[i] = 0 } }
         zones.values.forEach { it.content.indices.forEach { i -> it.content[i] = 0 } }
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    fun onPreferenceUpdate(event: TableRefreshRequest) {
+        Log.i(javaClass.name, "收到表格刷新请求，准备推送场地数据")
+        postData()
     }
 
     override fun onClick(view: View) {
@@ -115,6 +125,7 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun postData() {
+        Log.i(javaClass.name, "向事件总线推送场地数据")
         val orangeBonus = towers.values.sumBy { it.content[CubeColor.Orange.index] }
         val greenBonus = towers.values.sumBy { it.content[CubeColor.Green.index] }
         val purpleBonus = towers.values.sumBy { it.content[CubeColor.Purple.index] }
@@ -151,6 +162,7 @@ class ScorerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun changeColor(color: CubeColor?) {
+        Log.i(javaClass.name, "更改颜色: $current -> $color")
         current = color ?: CubeColor.None
         Snackbar.make(constraintButtons, "选择了${getString(current.str())}", Snackbar.LENGTH_SHORT).show()
         current.toPickerButton()?.let {
