@@ -1,4 +1,4 @@
-package org.mechdancer.towerrepression
+package org.mechdancer.towerrepression.event
 
 data class FieldEvent(
     val towerData: IntArray, //size 3

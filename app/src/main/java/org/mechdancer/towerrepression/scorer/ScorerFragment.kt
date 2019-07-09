@@ -25,10 +25,11 @@ import org.jetbrains.anko.forEachChild
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.support.v4.toast
-import org.mechdancer.towerrepression.ClearEvent
-import org.mechdancer.towerrepression.FieldEvent
+import org.mechdancer.towerrepression.CubeColor
 import org.mechdancer.towerrepression.R
-import org.mechdancer.towerrepression.TableRefreshRequest
+import org.mechdancer.towerrepression.event.ClearEvent
+import org.mechdancer.towerrepression.event.FieldEvent
+import org.mechdancer.towerrepression.event.TableRefreshRequest
 
 @Suppress("UNUSED_PARAMETER", "DEPRECATION")
 class ScorerFragment : Fragment(), View.OnClickListener {

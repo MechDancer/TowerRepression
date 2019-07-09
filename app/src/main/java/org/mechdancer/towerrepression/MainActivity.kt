@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
+import org.mechdancer.towerrepression.event.ClearEvent
 import org.mechdancer.towerrepression.preference.SettingsFragment
 import org.mechdancer.towerrepression.scorer.ScorerFragment
 import org.mechdancer.towerrepression.table.TableFragment
@@ -15,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var scorerFragment: ScorerFragment
     private lateinit var tableFragment: TableFragment
-    //    private lateinit var timerFragment: TimerFragment
     private lateinit var settingsFragment: SettingsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         scorerFragment = ScorerFragment()
         tableFragment = TableFragment()
-//        timerFragment = TimerFragment()
         settingsFragment = SettingsFragment()
 
         pager.adapter = PagerAdapter(supportFragmentManager, listOf(settingsFragment, scorerFragment, tableFragment))

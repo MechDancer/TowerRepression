@@ -1,8 +1,7 @@
-package org.mechdancer.towerrepression.scorer
+package org.mechdancer.towerrepression
 
 import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
-import org.mechdancer.towerrepression.R
 
 enum class CubeColor(@ColorRes val resFile: Int, val index: Int) {
     Orange(R.color.ORANGE, 0),

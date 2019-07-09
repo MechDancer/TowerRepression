@@ -15,10 +15,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.UI
-import org.mechdancer.towerrepression.ClearEvent
-import org.mechdancer.towerrepression.FieldEvent
-import org.mechdancer.towerrepression.TableRefreshRequest
-import org.mechdancer.towerrepression.scorer.CubeColor
+import org.mechdancer.towerrepression.CubeColor
+import org.mechdancer.towerrepression.event.ClearEvent
+import org.mechdancer.towerrepression.event.FieldEvent
+import org.mechdancer.towerrepression.event.TableRefreshRequest
 
 @Suppress("UNUSED_PARAMETER")
 class TableFragment : Fragment() {
